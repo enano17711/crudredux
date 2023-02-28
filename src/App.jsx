@@ -1,34 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import Header from "./components/Header.jsx";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Productos from "./components/Productos.jsx";
+import NuevoProducto from "./components/NuevoProducto.jsx";
+import EditarProducto from "./components/EditarProducto.jsx";
+import {Provider} from "react-redux";
+import store from "./store.js";
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    return (
+        <BrowserRouter>
+            <Provider store={store}>
+                <Header/>
+                <div className='container mt-5'>
+                    <Routes>
+                        <Route path='/' element={<Productos/>}/>
+                        <Route path='/productos/nuevo' element={<NuevoProducto/>}/>
+                        <Route path='/productos/editar/:id' element={<EditarProducto/>}/>
+                    </Routes>
+                </div>
+            </Provider>
+        </BrowserRouter>
+    )
 }
 
 export default App
