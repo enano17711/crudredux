@@ -1,54 +1,82 @@
-import React, {useState} from 'react';
-import {useDispatch} from "react-redux";
-import {crearNuevoProductoAction} from "../actions/productosActions.js";
+import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { crearNuevoProductoAction } from "../actions/crearProductosActions.js"
+import { useNavigate } from "react-router-dom"
 
 const NuevoProducto = () => {
-    const [nombre, setNombre] = useState('')
-    const [precio, setPrecio] = useState(0)
+   const [nombre, setNombre] = useState("")
+   const [precio, setPrecio] = useState(0)
 
-    const dispatch = useDispatch()
-    const agregarProducto = (producto) => dispatch(crearNuevoProductoAction(producto))
+   const cargando = useSelector((state) => state.productos.loading)
+   const error = useSelector((state) => state.productos.error)
 
-    const submitNuevoProducto = (e) => {
-        e.preventDefault()
+   const dispatch = useDispatch()
+   const agregarProducto = (producto) =>
+      dispatch(crearNuevoProductoAction(producto))
 
-        if (nombre.trim() === '' || precio <= 0) return
+   const navigation = useNavigate()
+   const submitNuevoProducto = (e) => {
+      e.preventDefault()
 
-        agregarProducto({nombre, precio})
-    };
+      if (nombre.trim() === "" || precio <= 0) return
 
-    return (
-        <div className='row justify-content-center'>
-            <div className='col-md-8'>
-                <div className='card'>
-                    <div className='card-body'>
-                        <h2 className='text-center mb-4 font-weight-bold'>
-                            Agregar Nuevo Producto
-                        </h2>
+      agregarProducto({ nombre, precio })
+      navigation("/")
+   }
 
-                        <form onSubmit={submitNuevoProducto}>
-                            <div className='form-group'>
-                                <label htmlFor="">Nombre Producto</label>
-                                <input type="text" className='form-control' placeholder='Nombre Producto'
-                                       name='nombre' value={nombre} onChange={e => setNombre(e.target.value)}/>
-                            </div>
+   return (
+      <div className="row justify-content-center">
+         <div className="col-md-8">
+            <div className="card">
+               <div className="card-body">
+                  <h2 className="text-center mb-4 font-weight-bold">
+                     Agregar Nuevo Producto
+                  </h2>
 
-                            <div className='form-group'>
-                                <label htmlFor="">Precio Producto</label>
-                                <input type="number" className='form-control' placeholder='Nombre Producto'
-                                       name='precio' value={precio} onChange={e => setPrecio(Number(e.target.value))}/>
-                            </div>
+                  <form onSubmit={submitNuevoProducto}>
+                     <div className="form-group">
+                        <label htmlFor="">Nombre Producto</label>
+                        <input
+                           type="text"
+                           className="form-control"
+                           placeholder="Nombre Producto"
+                           name="nombre"
+                           value={nombre}
+                           onChange={(e) => setNombre(e.target.value)}
+                        />
+                     </div>
 
-                            <button type='submit'
-                                    className='btn btn-primary font-weight-bold text-uppercase d-block w-100'>
-                                Agregar
-                            </button>
-                        </form>
-                    </div>
-                </div>
+                     <div className="form-group">
+                        <label htmlFor="">Precio Producto</label>
+                        <input
+                           type="number"
+                           className="form-control"
+                           placeholder="Nombre Producto"
+                           name="precio"
+                           value={precio}
+                           onChange={(e) => setPrecio(Number(e.target.value))}
+                        />
+                     </div>
+
+                     <button
+                        type="submit"
+                        className="btn btn-primary font-weight-bold text-uppercase d-block w-100"
+                     >
+                        Agregar
+                     </button>
+                  </form>
+
+                  {cargando ? <p>Cargando...</p> : null}
+                  {error ? (
+                     <p className="alert alert-danger p-2 mt-4 text-center">
+                        Hubo un error
+                     </p>
+                  ) : null}
+               </div>
             </div>
-        </div>
-    );
-};
+         </div>
+      </div>
+   )
+}
 
-export default NuevoProducto;
+export default NuevoProducto
