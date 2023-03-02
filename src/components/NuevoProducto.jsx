@@ -1,7 +1,11 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { crearNuevoProductoAction } from "../actions/crearProductosActions.js"
+import { crearNuevoProductoAction } from "../actions/productosActions/crearProductosActions.js"
 import { useNavigate } from "react-router-dom"
+import {
+   mostrarAlertaAction,
+   ocultarAlertaAction,
+} from "../actions/alertasActions/alertaAction.js"
 
 const NuevoProducto = () => {
    const [nombre, setNombre] = useState("")
@@ -9,6 +13,7 @@ const NuevoProducto = () => {
 
    const cargando = useSelector((state) => state.productos.loading)
    const error = useSelector((state) => state.productos.error)
+   const alerta = useSelector((state) => state.alerta.alerta)
 
    const dispatch = useDispatch()
    const agregarProducto = (producto) =>
@@ -18,7 +23,15 @@ const NuevoProducto = () => {
    const submitNuevoProducto = (e) => {
       e.preventDefault()
 
-      if (nombre.trim() === "" || precio <= 0) return
+      if (nombre.trim() === "" || precio <= 0) {
+         const alerta = {
+            msg: "Ambos campos son obligatorios",
+            clases: "alert alert-danger text-center text-uppercase p-3",
+         }
+         dispatch(mostrarAlertaAction(alerta))
+         return
+      }
+      dispatch(ocultarAlertaAction())
 
       agregarProducto({ nombre, precio })
       navigation("/")
@@ -32,6 +45,10 @@ const NuevoProducto = () => {
                   <h2 className="text-center mb-4 font-weight-bold">
                      Agregar Nuevo Producto
                   </h2>
+
+                  {alerta ? (
+                     <p className={alerta.clases}>{alerta.msg}</p>
+                  ) : null}
 
                   <form onSubmit={submitNuevoProducto}>
                      <div className="form-group">

@@ -1,9 +1,9 @@
-import clienteAxios from "../config/axios.js"
+import clienteAxios from "../../config/axios.js"
 import {
    OBTENER_PRODUCTO_ELIMINAR,
    PRODUCTO_ELIMINADO_ERROR,
    PRODUCTO_ELIMINADO_EXITO,
-} from "../types/index.js"
+} from "../../types/index.js"
 import Swal from "sweetalert2"
 
 export function eliminarProductosAction(id) {

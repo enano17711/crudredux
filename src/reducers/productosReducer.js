@@ -5,7 +5,9 @@ import {
    COMENZAR_DESCARGA_PRODUCTOS,
    DESCARGA_PRODUCTOS_ERROR,
    DESCARGA_PRODUCTOS_EXITO,
+   OBTENER_PRODUCTO_EDITAR,
    OBTENER_PRODUCTO_ELIMINAR,
+   PRODUCTO_EDITADO_EXITO,
    PRODUCTO_ELIMINADO_ERROR,
    PRODUCTO_ELIMINADO_EXITO,
 } from "../types/index.js"
@@ -13,6 +15,7 @@ import {
 const initialState = {
    productos: [],
    productoEliminar: null,
+   productoEditar: null,
    error: null,
    loading: false,
 }
@@ -58,6 +61,20 @@ export default function (state = initialState, action) {
                (producto) => producto.id !== state.productoEliminar
             ),
             productoEliminar: null,
+         }
+      case OBTENER_PRODUCTO_EDITAR:
+         return {
+            ...state,
+            productoEditar: action.payload,
+         }
+      case PRODUCTO_EDITADO_EXITO:
+         return {
+            ...state,
+            productos: state.productos.map((producto) => {
+               if (producto.id === action.payload.id) return action.payload
+               return producto
+            }),
+            productoEditar: null,
          }
       default:
          return state

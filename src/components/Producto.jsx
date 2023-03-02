@@ -1,8 +1,9 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { eliminarProductosAction } from "../actions/eliminarProductosAction.js"
+import { eliminarProductosAction } from "../actions/productosActions/eliminarProductosAction.js"
 import Swal from "sweetalert2"
+import { editarProductosAction } from "../actions/productosActions/editarProductosAction.js"
 
 const Producto = ({ producto }) => {
    const dispatch = useDispatch()
@@ -10,6 +11,7 @@ const Producto = ({ producto }) => {
    const navigate = useNavigate()
 
    const redireccionarEdicion = (producto) => {
+      dispatch(editarProductosAction(producto))
       navigate(`/productos/editar/${producto.id}`)
    }
 

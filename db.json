@@ -1,29 +1,19 @@
 {
   "productos": [
     {
-      "id": 2,
-      "nombre": "Jugo de Naranja",
-      "precio": "1"
-    },
-    {
       "nombre": "Jugo de Fresa",
-      "precio": "200",
+      "precio": "20000",
       "id": 5
-    },
-    {
-      "nombre": "qwe",
-      "precio": 111,
-      "id": 7
-    },
-    {
-      "nombre": "qwe",
-      "precio": 111,
-      "id": 8
     },
     {
       "nombre": "dddd",
       "precio": 12,
       "id": 9
+    },
+    {
+      "nombre": "test product",
+      "precio": 123456,
+      "id": 10
     }
   ]
 }

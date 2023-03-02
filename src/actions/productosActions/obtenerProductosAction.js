@@ -2,8 +2,8 @@ import {
    COMENZAR_DESCARGA_PRODUCTOS,
    DESCARGA_PRODUCTOS_ERROR,
    DESCARGA_PRODUCTOS_EXITO,
-} from "../types/index.js"
-import clienteAxios from "../config/axios.js"
+} from "../../types/index.js"
+import clienteAxios from "../../config/axios.js"
 
 export function obtenerProductosAction() {
    return async (dispatch) => {

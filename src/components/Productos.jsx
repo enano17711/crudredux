@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { obtenerProductosAction } from "../actions/obtenerProductosAction.js"
+import { obtenerProductosAction } from "../actions/productosActions/obtenerProductosAction.js"
 import Producto from "./Producto.jsx"
 
 const Productos = () => {
